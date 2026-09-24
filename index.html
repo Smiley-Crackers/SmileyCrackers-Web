@@ -145,7 +145,7 @@ function imageForProduct(p){
     "moneybank2pcs":"moneybank(2pcs).jpg",
     "2kgpaperbomb":"2kgpaperbomb.jpg"
   };
-  if(aliases[key]) return "/images/products/"+encodeURIComponent(aliases[key]);
+  if(aliases[key]) return "./images/products/"+encodeURIComponent(aliases[key]);
   const match=PRODUCT_IMAGES.find(x=>normalizeImageKey(x.file.replace(/\.[^.]+$/,""))===key);
   return match ? match.url : "";
 }
@@ -250,7 +250,7 @@ function closeOrderDetail(){document.getElementById("orderDetailModal").classLis
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
 async function boot(){
   try{const r=await fetch(API_BASE+"/api/products");if(r.ok){const serverProducts=await r.json();if(Array.isArray(serverProducts)&&serverProducts.length){PRODUCTS.length=0;serverProducts.forEach((p,i)=>PRODUCTS.push({id:p.id,serial:p.serial,name:p.name,cat:p.category,mrp:p.mrp,price:p.price,unit:p.unit}));}}}catch(e){console.warn("API product load failed; using embedded catalogue",e);}
-  try{const ir=await fetch(API_BASE+"/api/products/images");if(ir.ok){const imgs=await ir.json();if(Array.isArray(imgs)) PRODUCT_IMAGES=imgs;}}catch(e){console.warn("Product image list unavailable",e);}
+  try{const ir=await fetch("https://api.github.com/repos/Smiley-Crackers/SmileyCrackers-Web/contents/images/products");if(ir.ok){const imgs=await ir.json();if(Array.isArray(imgs)) PRODUCT_IMAGES=imgs.map(x=>({file:x.name,url:x.download_url}));}}catch(e){console.warn("Product image list unavailable",e);}
   buildCategories();applyFilters();renderCart();
 }
 function createSkyFireworks(){const host=document.getElementById("skyFireworks");if(!host)return;const bursts=[{x:12,y:22,d:0},{x:86,y:20,d:.8},{x:18,y:72,d:1.5},{x:82,y:70,d:2.1},{x:50,y:10,d:.4}];bursts.forEach(b=>{const el=document.createElement("div");el.className="burst";el.style.left=b.x+"%";el.style.top=b.y+"%";el.style.animationDelay=b.d+"s";for(let i=0;i<18;i++){const ray=document.createElement("span");ray.className="ray";ray.style.setProperty("--a",(i*20)+"deg");ray.style.animationDelay=(b.d+i*.015)+"s";el.appendChild(ray)}const core=document.createElement("span");core.className="core";core.style.animationDelay=b.d+"s";el.appendChild(core);host.appendChild(el)})}
