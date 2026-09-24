@@ -69,7 +69,7 @@ footer{text-align:center;padding:35px;color:#778095}
 
 <div class="customer" id="customerApp">
 <header class="top"><nav class="nav">
-<a class="logo" href="#home"><img src="/smiley-logo.jpeg" alt="Smiley Crackers"><span>SMILEY CRACKERS</span></a>
+<a class="logo" href="#home"><img src="smiley-logo.jpeg" alt="Smiley Crackers"><span>SMILEY CRACKERS</span></a>
 <div class="navlinks"><a href="#shop">Shop</a><a href="#categories">Categories</a><a href="#about">About</a><a href="/admin">Admin</a></div>
 <button class="cart" onclick="openCart()">🛒 Cart <span class="badgeCount" id="cartCount">0</span></button>
 </nav></header>
@@ -78,7 +78,7 @@ footer{text-align:center;padding:35px;color:#778095}
 <span class="pill">🎆 DEEPAVALI 2026 • 70% DISCOUNT</span><h1>Light Up<br>Every Smile 😊</h1>
 <p>Shop your favourite crackers with clear prices, easy quantity selection and a smooth order experience.</p>
 <div class="heroActions"><a class="primary" href="#shop">Shop Crackers ✨</a><button class="secondary" onclick="openCart()">View Cart 🛒</button></div>
-</div><div class="fireworks"><div class="sky-fireworks" id="skyFireworks"></div><span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span><span class="spark s4"></span><img class="logoHero" src="/smiley-logo.jpeg" alt="Smiley Crackers logo"></div></div></section>
+</div><div class="fireworks"><div class="sky-fireworks" id="skyFireworks"></div><span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span><span class="spark s4"></span><img class="logoHero" src="smiley-logo.jpeg" alt="Smiley Crackers logo"></div></div></section>
 
 <section class="section" id="shop"><div class="sectionTitle"><div><h2>Shop All Crackers 🎆</h2><p id="resultInfo">155 products available</p></div></div>
 <input id="search" class="search" placeholder="🔎 Search by cracker name or category..." oninput="applyFilters()">
@@ -100,7 +100,7 @@ footer{text-align:center;padding:35px;color:#778095}
 
 <div class="success" id="successScreen"><div class="successCard"><div style="position:relative;display:inline-grid;place-items:center"><div class="successLogoText">🎆</div><span class="burstRing"></span></div><h2>Order Placed! 🎉</h2><p id="successText"></p><p style="font-size:13px">Your order is saved. Your PDF will download automatically.</p><button id="pdfRetry" class="secondary" style="display:none;margin:10px auto" type="button">📄 Download PDF Again</button><button class="secondary continue-btn" style="display:inline-flex;margin:10px auto" type="button" onclick="continueShopping()">Continue Shopping 🛍️</button></div></div>
 
-<section class="admin" id="adminApp"><div class="adminTop"><div class="adminBrand"><img src="/smiley-logo.jpeg" alt="Smiley Crackers"><div><strong>SMILEY CRACKERS</strong><small>Admin Control Center</small></div></div><button class="miniBtn" onclick="logoutAdmin()">Customer Website</button></div>
+<section class="admin" id="adminApp"><div class="adminTop"><div class="adminBrand"><img src="smiley-logo.jpeg" alt="Smiley Crackers"><div><strong>SMILEY CRACKERS</strong><small>Admin Control Center</small></div></div><button class="miniBtn" onclick="logoutAdmin()">Customer Website</button></div>
 <div class="adminWrap"><div class="stats"><div class="stat"><small>Total Orders</small><strong id="sOrders">0</strong></div><div class="stat"><small>Customers</small><strong id="sCustomers">0</strong></div><div class="stat"><small>Net Sales</small><strong id="sSales">Rs.0</strong></div><div class="stat"><small>Buyer Cost</small><strong id="sBuyer">Rs.0</strong></div><div class="stat"><small>Total Profit</small><strong class="profit" id="sProfit">Rs.0</strong></div></div>
 <div class="tabs"><button class="tab active" onclick="adminTab('orders',this)">Orders</button><button class="tab" onclick="adminTab('products',this)">Products & Prices</button><button class="tab" onclick="adminTab('customers',this)">Customers</button><button class="tab" onclick="adminTab('settings',this)">Settings</button></div>
 <div class="panel" id="adminOrders"></div><div class="panel" id="adminProducts" style="display:none"></div><div class="panel" id="adminCustomers" style="display:none"></div><div class="panel" id="adminSettings" style="display:none"></div></div></section>
