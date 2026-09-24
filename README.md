@@ -1,0 +1,2 @@
+# SmileyCrackers-Web
+Hosting Purpose
