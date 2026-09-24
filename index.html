@@ -134,8 +134,33 @@ function clearCart(){
 function saveOrders(){}
 function catEmoji(cat){const m={"Electric Crackers":"⚡","Deluxe Crackers":"💥","Chorsa & Giant Crackers":"🎇","Bijili":"✨","Ground Chakkar":"🌀","Flower Pots":"🌋","Wala Garlands":"🎆","Siren":"📣","Pencil":"🖊️","Bombs":"💥","Paper Bomb":"💣","Twinkling Star Small":"⭐","Rockets":"🚀","Children’s Items":"🧒","Aerial Fancy":"🎆","Special Fountain":"🌋","Peacock Collection":"🦚","Fancy Drops":"💫","Special - 5 Piece Fountains":"🎇","Fancy Items":"🎉","Sky Force - 5 Pcs":"🚁","Multi Colour Shot":"🌈","Colourful Magic in the Sky":"🌌","Magic in the Sky":"🎆","10 CM Sparklers":"✨","12 CM Sparklers":"✨","15 CM Sparklers":"✨","30 CM Sparklers":"✨","50 CM Sparklers":"✨","Rotating Sparklers":"☂️","Other Items":"🎯","Gift Box":"🎁"};return m[cat]||"🎆";}
 function buildCategories(){const cats=[...new Set(PRODUCTS.map(p=>p.cat))];document.getElementById("categories").innerHTML='<button class="cat active" onclick="setCategory(\'All\',this)">🎆 All</button>'+cats.map(c=>'<button class="cat" onclick="setCategory('+JSON.stringify(c)+',this)">'+catEmoji(c)+' '+c+'</button>').join("");}
-function setCategory(cat,btn){activeCategory=cat;document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));btn.classList.add("active");btn.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});document.getElementById("search").value="";applyFilters();setTimeout(()=>{const first=document.querySelector("#products .card");if(first)first.scrollIntoView({behavior:"smooth",block:"start"});},100);}
-function applyFilters(){const q=document.getElementById("search").value.toLowerCase().trim();const list=PRODUCTS.filter(p=>(activeCategory==="All"||p.cat===activeCategory)&&(!q||p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)));renderProducts(list);document.getElementById("resultInfo").textContent=list.length+" product"+(list.length===1?"":"s")+" shown";}
+function setCategory(cat,btn){
+  activeCategory=cat;
+
+  document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
+
+  if(btn){
+    btn.classList.add("active");
+    btn.scrollIntoView({
+      behavior:"smooth",
+      block:"nearest",
+      inline:"center"
+    });
+  }
+
+  document.getElementById("search").value="";
+  applyFilters();
+
+  const shop=document.getElementById("shop");
+  if(shop){
+    setTimeout(()=>{
+      shop.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+    },100);
+  }
+}function applyFilters(){const q=document.getElementById("search").value.toLowerCase().trim();const list=PRODUCTS.filter(p=>(activeCategory==="All"||p.cat===activeCategory)&&(!q||p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)));renderProducts(list);document.getElementById("resultInfo").textContent=list.length+" product"+(list.length===1?"":"s")+" shown";}
 let PRODUCT_IMAGES=[];
 function normalizeImageKey(value){return String(value||"").toLowerCase().replace(/[^a-z0-9]+/g,"");}
 function imageForProduct(p){
