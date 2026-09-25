@@ -133,52 +133,82 @@ function clearCart(){
 }
 function saveOrders(){}
 function catEmoji(cat){const m={"Electric Crackers":"⚡","Deluxe Crackers":"💥","Chorsa & Giant Crackers":"🎇","Bijili":"✨","Ground Chakkar":"🌀","Flower Pots":"🌋","Wala Garlands":"🎆","Siren":"📣","Pencil":"🖊️","Bombs":"💥","Paper Bomb":"💣","Twinkling Star Small":"⭐","Rockets":"🚀","Children’s Items":"🧒","Aerial Fancy":"🎆","Special Fountain":"🌋","Peacock Collection":"🦚","Fancy Drops":"💫","Special - 5 Piece Fountains":"🎇","Fancy Items":"🎉","Sky Force - 5 Pcs":"🚁","Multi Colour Shot":"🌈","Colourful Magic in the Sky":"🌌","Magic in the Sky":"🎆","10 CM Sparklers":"✨","12 CM Sparklers":"✨","15 CM Sparklers":"✨","30 CM Sparklers":"✨","50 CM Sparklers":"✨","Rotating Sparklers":"☂️","Other Items":"🎯","Gift Box":"🎁"};return m[cat]||"🎆";}
-function buildCategories(){const cats=[...new Set(PRODUCTS.map(p=>p.cat))];document.getElementById("categories").innerHTML='<button class="cat active" onclick="setCategory(\'All\',this)">🎆 All</button>'+cats.map(c=>'<button class="cat" onclick="setCategory('+JSON.stringify(c)+',this)">'+catEmoji(c)+' '+c+'</button>').join("");}
-function setCategory(cat,btn){
-  activeCategory=cat;
+function buildCategories(){
+  const container=document.getElementById("categories");
+  if(!container)return;
 
-  document.querySelectorAll(".cat").forEach(x=>{
+  const cats=[...new Set(PRODUCTS.map(p=>p.cat))];
+  container.innerHTML="";
+
+  const allBtn=document.createElement("button");
+  allBtn.type="button";
+  allBtn.className="cat active";
+  allBtn.textContent="🎆 All";
+  allBtn.addEventListener("click",()=>setCategory("All",allBtn));
+  container.appendChild(allBtn);
+
+  cats.forEach(cat=>{
+    const btn=document.createElement("button");
+    btn.type="button";
+    btn.className="cat";
+    btn.textContent=catEmoji(cat)+" "+cat;
+    btn.addEventListener("click",()=>setCategory(cat,btn));
+    container.appendChild(btn);
+  });
+}
+function setCategory(cat,btn){
+  activeCategory = cat;
+
+  // Update active button
+  document.querySelectorAll(".cat").forEach(x => {
     x.classList.remove("active");
   });
 
   if(btn){
     btn.classList.add("active");
 
-    const container=document.getElementById("categories");
+    // Keep category button centered horizontally
+    const container = document.getElementById("categories");
+
     if(container){
-      const left=btn.offsetLeft-(container.clientWidth-btn.offsetWidth)/2;
+      const left =
+        btn.offsetLeft -
+        (container.clientWidth - btn.offsetWidth) / 2;
+
       container.scrollTo({
-        left:Math.max(0,left),
-        behavior:"smooth"
+        left: Math.max(0, left),
+        behavior: "smooth"
       });
     }
   }
 
-  const search=document.getElementById("search");
-  if(search) search.value="";
+  // Clear search
+  const search = document.getElementById("search");
+  if(search) search.value = "";
 
+  // Apply category filter
   applyFilters();
 
-  setTimeout(()=>{
-    const products=document.getElementById("products");
-    const shop=document.getElementById("shop");
+  // Scroll to the filtered products
+  setTimeout(() => {
+    const products = document.getElementById("products");
 
     if(products){
-      const y=products.getBoundingClientRect().top+
-              window.pageYOffset-
-              100;
+      const header = document.querySelector(".top");
+      const headerHeight = header ? header.offsetHeight : 0;
+
+      const top =
+        products.getBoundingClientRect().top +
+        window.pageYOffset -
+        headerHeight -
+        25;
 
       window.scrollTo({
-        top:Math.max(0,y),
-        behavior:"smooth"
-      });
-    }else if(shop){
-      shop.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
+        top: Math.max(0, top),
+        behavior: "smooth"
       });
     }
-  },50);
+  }, 100);
 }
 function applyFilters(){const q=document.getElementById("search").value.toLowerCase().trim();const list=PRODUCTS.filter(p=>(activeCategory==="All"||p.cat===activeCategory)&&(!q||p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)));renderProducts(list);document.getElementById("resultInfo").textContent=list.length+" product"+(list.length===1?"":"s")+" shown";}
 let PRODUCT_IMAGES=[];
